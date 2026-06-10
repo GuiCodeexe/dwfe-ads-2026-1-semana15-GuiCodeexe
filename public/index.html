@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Usuarios</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="caixa">
+        <h1>Cadastro</h1>
+
+        <label>Nome:</label>
+        <input type="text" id="campoNome" placeholder="Digite seu Nome">
+
+        <label>Email:</label>
+        <input type="text" id="campoEmail" placeholder="Digite seu Email">
+        
+        <label>Cargo:</label>
+        <input type="text" id="campoCargo" placeholder="Digite seu Cargo">
+
+        <label>Departamento:</label>
+        <input type="text" id="campoDepartamemto" placeholder="Digite seu Departamento">
+
+        <label>Senha:</label>
+        <input type="password" id="campoSenha" placeholder="Digite sua senha">
+
+        <button onclick="clicarCadastrarUsuario()">Cadastrar Usuarios</button>
+
+        <p class="erro" id="mensagemErro"></p>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function clicarEntrar() {
+            var Nome = document.getElementById("campoNome").value;
+            var Email = document.getElementById("campoEmail").value;
+            var Cargo = document.getElementById("campoEmail").value;
+            var Departamento = document.getElementById("campoEmail").value;
+            var Senha = document.getElementById("campoSenha").value;
+
+            if (Nome === "" || Email === "" || Cargo === "" || Departamento === ""|| Senha === "") 
+            {
+                document.getElementById("mensagemErro").innerText = "Preencha todos os campos!";
+                return;
+            }
+
+            CadastrarUsuarios(Nome, Email, Cargo, Departamento, Senha);
+        }
+    </script>
+
+</body>
+</html>
