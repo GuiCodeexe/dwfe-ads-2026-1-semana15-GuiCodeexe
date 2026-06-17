@@ -2,52 +2,48 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Usuarios</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Funcionários</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <div class="caixa">
-        <h1>Cadastro</h1>
+    <div class="container">
 
-        <label>Nome:</label>
-        <input type="text" id="campoNome" placeholder="Digite seu Nome">
+        <h1>Cadastro de Funcionários</h1>
 
-        <label>Email:</label>
-        <input type="text" id="campoEmail" placeholder="Digite seu Email">
-        
-        <label>Cargo:</label>
-        <input type="text" id="campoCargo" placeholder="Digite seu Cargo">
+        <div class="formulario">
+            <label for="campoNome">Nome:</label>
+            <input type="text" id="campoNome" placeholder="Digite o nome">
 
-        <label>Departamento:</label>
-        <input type="text" id="campoDepartamemto" placeholder="Digite seu Departamento">
+            <label for="campoEmail">E-mail:</label>
+            <input type="email" id="campoEmail" placeholder="Digite o e-mail">
 
-        <label>Senha:</label>
-        <input type="password" id="campoSenha" placeholder="Digite sua senha">
+            <label for="campoCargo">Cargo:</label>
+            <input type="text" id="campoCargo" placeholder="Digite o cargo">
 
-        <button onclick="clicarCadastrarUsuario()">Cadastrar Usuarios</button>
+            <label for="campoDepartamento">Departamento:</label>
+            <input type="text" id="campoDepartamento" placeholder="Digite o departamento">
 
-        <p class="erro" id="mensagemErro"></p>
+            <label for="campoSenha">Senha:</label>
+            <input type="password" id="campoSenha" placeholder="Digite a senha">
+
+            <button onclick="cadastrarFuncionario()">
+                Cadastrar Funcionário
+            </button>
+
+            <p id="mensagemErro" class="erro"></p>
+        </div>
+
+        <div class="contador">
+            <h2>Total de Funcionários: <span id="totalFuncionarios">0</span></h2>
+        </div>
+
+        <div id="listaFuncionarios" class="lista-funcionarios"></div>
+
     </div>
 
     <script src="script.js"></script>
-    <script>
-        function clicarEntrar() {
-            var Nome = document.getElementById("campoNome").value;
-            var Email = document.getElementById("campoEmail").value;
-            var Cargo = document.getElementById("campoEmail").value;
-            var Departamento = document.getElementById("campoEmail").value;
-            var Senha = document.getElementById("campoSenha").value;
-
-            if (Nome === "" || Email === "" || Cargo === "" || Departamento === ""|| Senha === "") 
-            {
-                document.getElementById("mensagemErro").innerText = "Preencha todos os campos!";
-                return;
-            }
-
-            CadastrarUsuarios(Nome, Email, Cargo, Departamento, Senha);
-        }
-    </script>
 
 </body>
 </html>

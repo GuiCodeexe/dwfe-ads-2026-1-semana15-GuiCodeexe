@@ -1,54 +1,92 @@
-var adminNome = "admin";
-var adminEmail = "admin@123.br";
-var adminCargo = "Gestor";
-var adminDepartamento = "Administracao";
-var adminSenha = "123";
+let funcionarios =
+    JSON.parse(localStorage.getItem("funcionarios")) || [];
 
-function CadastrarUsuarios(Nome, Email, Cargo, Departamento, Senha) {
-    if (Nome == adminNome && Email === adminEmail && Cargo === adminCargo && Departamento === adminDepartamento && Senha === adminSenha) 
-    {
-        var dadosAdmin = { nome: "Administrador", login: "admin", perfil: "admin" };
-        sessionStorage.setItem("usuarioLogado", JSON.stringify(dadosAdmin));
-        window.location.href = "controle.html";
+function cadastrarFuncionario() {
+
+    const nome = document.getElementById("campoNome").value.trim();
+    const email = document.getElementById("campoEmail").value.trim();
+    const cargo = document.getElementById("campoCargo").value.trim();
+    const departamento = document.getElementById("campoDepartamento").value.trim();
+    const senha = document.getElementById("campoSenha").value.trim();
+
+    const mensagemErro = document.getElementById("mensagemErro");
+
+    if (
+        nome === "" ||
+        email === "" ||
+        cargo === "" ||
+        departamento === "" ||
+        senha === ""
+    ) {
+        mensagemErro.innerText = "Preencha todos os campos.";
         return;
     }
 
-    var Cadastro = JSON.parse(localStorage.getItem("Cadastro")) || [];
+    mensagemErro.innerText = "";
 
-    for (var i = 0; i < Cadastro.length; i++) {
-        var f = Cadastro[i];
-        if (f.Nome === Nome && f.Email === Email && f.Cargo === Cargo && f.Departamento === Departamento && f.Senha === Senha) 
-        {
-            sessionStorage.setItem("usuarioLogado", JSON.stringify(f));
-            window.location.href = "boasvindas.html";
-            return;
-        }
-    }
+    const funcionario = {
+        id: Date.now(),
+        nome: nome,
+        email: email,
+        cargo: cargo,
+        departamento: departamento,
+        senha: senha
+    };
 
-    document.getElementById("mensagemErro").innerText = "Login ou senha incorretos!";
+    funcionarios.push(funcionario);
+
+    salvarFuncionarios();
+
+    listarFuncionarios();
+
+    limparCampos();
 }
 
-function fazerLogout() {
-    sessionStorage.removeItem("usuarioLogado");
-    window.location.href = "index.html";
+// Salva no LocalStorage
+function salvarFuncionarios() {
+    localStorage.setItem(
+        "funcionarios",
+        JSON.stringify(funcionarios)
+    );
 }
 
-function getUsuarioLogado() {
-    var dados = sessionStorage.getItem("usuarioLogado");
-    if (dados) {
-        return JSON.parse(dados);
-    }
-    return null;
+function listarFuncionarios() {
+
+    const lista = document.getElementById("listaFuncionarios");
+
+    lista.innerHTML = "";
+
+    funcionarios.forEach(funcionario => {
+
+        const card = document.createElement("div");
+
+        card.classList.add("card");
+
+        card.innerHTML = `
+            <h3>${funcionario.nome}</h3>
+            <p><strong>E-mail:</strong> ${funcionario.email}</p>
+            <p><strong>Cargo:</strong> ${funcionario.cargo}</p>
+            <p><strong>Departamento:</strong> ${funcionario.departamento}</p>
+        `;
+
+        lista.appendChild(card);
+    });
+
+    atualizarQuantidade();
 }
 
-function getFuncionarios() {
-    var dados = localStorage.getItem("funcionarios");
-    if (dados) {
-        return JSON.parse(dados);
-    }
-    return [];
+function atualizarQuantidade() {
+    document.getElementById("totalFuncionarios").innerText =
+        funcionarios.length;
 }
 
-function salvarFuncionarios(lista) {
-    localStorage.setItem("funcionarios", JSON.stringify(lista));
+function limparCampos() {
+
+    document.getElementById("campoNome").value = "";
+    document.getElementById("campoEmail").value = "";
+    document.getElementById("campoCargo").value = "";
+    document.getElementById("campoDepartamento").value = "";
+    document.getElementById("campoSenha").value = "";
 }
+
+listarFuncionarios();
